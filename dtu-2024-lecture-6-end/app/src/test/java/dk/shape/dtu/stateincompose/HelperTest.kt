@@ -26,6 +26,10 @@ class HelperTest {
 
     @Test
     fun getCityTimeTest() {
-        assertEquals(getCityTime(12), "21:35")
+        val timezoneOffset = 12
+        val calendar = java.util.Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+        calendar.add(java.util.Calendar.SECOND, timezoneOffset)
+        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+        assertEquals(getCityTime(timezoneOffset), timeFormat.format(calendar.time))
     }
 }
