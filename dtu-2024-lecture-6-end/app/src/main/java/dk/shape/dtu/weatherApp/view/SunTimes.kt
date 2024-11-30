@@ -3,6 +3,7 @@ package dk.shape.dtu.weatherApp.view
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
@@ -36,9 +37,10 @@ fun SunTimes(weatherData: WeatherResponse?) {
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
-            Image(
-                painter = painterResource(id = R.drawable.sunrise),
-                contentDescription = "Sunrise Icon",
+            Icon(
+                painter = painterResource(id = R.drawable.sun2),
+                contentDescription = "Sun",
+                tint = Color.White,
                 modifier = Modifier.size(24.dp)
             )
         }
@@ -58,9 +60,10 @@ fun SunTimes(weatherData: WeatherResponse?) {
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp
             )
-            Image(
-                painter = painterResource(id = R.drawable.sunset),
-                contentDescription = "Sunset Icon",
+            Icon(
+                painter = painterResource(id = R.drawable.midnight),
+                contentDescription = "Moon",
+                tint = Color.White,
                 modifier = Modifier.size(24.dp)
             )
         }

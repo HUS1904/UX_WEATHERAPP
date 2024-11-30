@@ -11,7 +11,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.blur
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -26,7 +31,7 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse?, u
         imageOffsetX.animateTo(
             targetValue = 0f,
             animationSpec = tween(
-                durationMillis = 3000,
+                durationMillis = 1500,
                 easing = LinearOutSlowInEasing
             )
         )
@@ -34,6 +39,8 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse?, u
 
     val sunrise = weatherData?.city?.sunrise?.toLong() ?: 0L
     val sunset = weatherData?.city?.sunset?.toLong() ?: 0L
+    val centerOffset = remember { mutableStateOf(Offset.Zero) }
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         IconButton(
@@ -59,6 +66,24 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse?, u
                     Box(
                         modifier = Modifier.fillMaxWidth().height(300.dp).background(Color.Transparent)
                     ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .onSizeChanged { size ->
+                                    centerOffset.value = Offset(size.width / 2f, size.height / 2f)
+                                }.graphicsLayer {
+                                    scaleX = 1.5f
+                                    scaleY = 1f
+                                }
+                                .background(
+                                    brush = Brush.radialGradient(
+                                        colors = listOf(Color.White.copy(alpha = 0.2f), Color.Transparent),
+                                        center = centerOffset.value,
+                                        radius = 400f
+                                    )
+                                )
+                                .blur(24.dp)
+                        )
                         Image(
                             painter = painterResource(
                                 id = getCurrentWeatherIconResource(
