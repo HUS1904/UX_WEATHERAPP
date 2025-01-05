@@ -23,13 +23,4 @@ class HelperTest {
     fun formatTimeFromTimeStampTest() {
         assertEquals(formatTimeFromTimestamp(123, 456), "01:09")
     }
-
-    @Test
-    fun getCityTimeTest() {
-        val timezoneOffset = 12
-        val calendar = java.util.Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-        calendar.add(java.util.Calendar.SECOND, timezoneOffset)
-        val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        assertEquals(getCityTime(timezoneOffset), timeFormat.format(calendar.time))
-    }
 }

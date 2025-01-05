@@ -11,8 +11,12 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.compose.*
 import com.google.android.gms.location.*
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
+import dk.shape.dtu.weatherApp.model.data.addCityToList
+import dk.shape.dtu.weatherApp.model.data.getLastKnownLocation
+import dk.shape.dtu.weatherApp.view.AppContent
 import dk.shape.dtu.weatherApp.view.CitiesListScreen
-import dk.shape.dtu.weatherApp.viewModel.AppContent
+
+const val apiKey = "d63ace15f43fa9ad250fcd0b88a420cd"
 
 class MainActivity : ComponentActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -27,7 +31,10 @@ class MainActivity : ComponentActivity() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                getLastKnownLocation()
+                getLastKnownLocation(fusedLocationClient, this) {lat, lon ->
+                    latitude = lat
+                    longitude = lon
+                }
             } else {
                 latitude = 55.6761
                 longitude = 12.5683
@@ -36,7 +43,10 @@ class MainActivity : ComponentActivity() {
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             == PackageManager.PERMISSION_GRANTED) {
-            getLastKnownLocation()
+            getLastKnownLocation(fusedLocationClient, this) {lat, lon ->
+                latitude = lat
+                longitude = lon
+            }
         } else {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
@@ -64,28 +74,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-        }
-    }
-
-    private fun addCityToList(newCityWeather: WeatherResponse?) {
-        val cityAlreadyAdded = citiesWeather.any { it.city?.name == newCityWeather?.city?.name }
-        if (newCityWeather != null && !cityAlreadyAdded) {
-            citiesWeather.add(newCityWeather)
-        }
-    }
-
-    private fun getLastKnownLocation() {
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                latitude = location.latitude
-                longitude = location.longitude
-            } else {
-                latitude = 55.6761
-                longitude = 12.5683
-            }
-        }.addOnFailureListener {
-            latitude = 55.6761
-            longitude = 12.5683
         }
     }
 }

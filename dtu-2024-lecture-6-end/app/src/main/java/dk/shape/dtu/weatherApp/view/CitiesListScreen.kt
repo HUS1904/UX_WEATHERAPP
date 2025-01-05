@@ -13,7 +13,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
-import dk.shape.dtu.weatherApp.viewModel.fetchWeatherData
 import dk.shape.dtu.weatherApp.viewModel.fetchUvIndex
 import kotlin.math.ceil
 
