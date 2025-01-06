@@ -2,8 +2,11 @@ package dk.shape.dtu.weatherApp.model.data
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.mutableStateListOf
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import dk.shape.dtu.weatherApp.MainActivity
 
@@ -13,6 +16,9 @@ fun getLastKnownLocation(fusedLocationClient: FusedLocationProviderClient, activ
     // Default fallback location (Copenhagen)
     var latitude = 55.6761
     var longitude = 12.5683
+
+    // DO NOT REMOVE
+    Log.d("getLastKnownLocation", "Getting last known location")
 
     // Check permissions
     if (ActivityCompat.checkSelfPermission(

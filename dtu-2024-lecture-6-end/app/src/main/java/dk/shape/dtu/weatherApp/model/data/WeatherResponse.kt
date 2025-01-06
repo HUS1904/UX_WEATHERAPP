@@ -1,85 +1,97 @@
 package dk.shape.dtu.weatherApp.model.data
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class WeatherResponse(
-    @SerializedName("cod") var cod: String? = null,
-    @SerializedName("message") var message: Int? = null,
-    @SerializedName("cnt") var cnt: Int? = null,
-    @SerializedName("list") var list: ArrayList<WeatherData> = arrayListOf(),
-    @SerializedName("city") var city: City? = City()
+    @SerialName("cod") var cod: String? = null,
+    @SerialName("message") var message: Int? = null,
+    @SerialName("cnt") var cnt: Int? = null,
+    @SerialName("list") var list: ArrayList<WeatherData> = arrayListOf(),
+    @SerialName("city") var city: City? = City()
 )
 
+@Serializable
 data class City(
-    @SerializedName("id") var id: Int? = null,
-    @SerializedName("name") var name: String? = null,
-    @SerializedName("coord") var coord: Coord? = Coord(),
-    @SerializedName("country") var country: String? = null,
-    @SerializedName("population") var population: Int? = null,
-    @SerializedName("timezone") var timezone: Int? = null,
-    @SerializedName("sunrise") var sunrise: Int? = null,
-    @SerializedName("sunset") var sunset: Int? = null
+    @SerialName("id") var id: Int? = null,
+    @SerialName("name") var name: String? = null,
+    @SerialName("coord") var coord: Coord? = Coord(),
+    @SerialName("country") var country: String? = null,
+    @SerialName("population") var population: Int? = null,
+    @SerialName("timezone") var timezone: Int? = null,
+    @SerialName("sunrise") var sunrise: Int? = null,
+    @SerialName("sunset") var sunset: Int? = null
 )
 
+@Serializable
 data class Coord(
-    @SerializedName("lat") var lat: Double? = null,
-    @SerializedName("lon") var lon: Double? = null
+    @SerialName("lat") var lat: Double? = null,
+    @SerialName("lon") var lon: Double? = null
 )
 
+@Serializable
 data class WeatherData(
-    @SerializedName("dt") var dt: Long? = null,
-    @SerializedName("main") var main: Main? = Main(),
-    @SerializedName("weather") var weather: ArrayList<Weather> = arrayListOf(),
-    @SerializedName("clouds") var clouds: Clouds? = Clouds(),
-    @SerializedName("wind") var wind: Wind? = Wind(),
-    @SerializedName("visibility") var visibility: Int? = null,
-    @SerializedName("pop") var pop: Double? = null,
-    @SerializedName("sys") var sys: Sys? = Sys(),
-    @SerializedName("dt_txt") var dtTxt: String? = null,
-    @SerializedName("rain") var rain: Rain? = null
+    @SerialName("dt") var dt: Long? = null,
+    @SerialName("main") var main: Main? = Main(),
+    @SerialName("weather") var weather: ArrayList<Weather> = arrayListOf(),
+    @SerialName("clouds") var clouds: Clouds? = Clouds(),
+    @SerialName("wind") var wind: Wind? = Wind(),
+    @SerialName("visibility") var visibility: Int? = null,
+    @SerialName("pop") var pop: Double? = null,
+    @SerialName("sys") var sys: Sys? = Sys(),
+    @SerialName("dt_txt") var dtTxt: String? = null,
+    @SerialName("rain") var rain: Rain? = null
 )
 
+@Serializable
 data class Rain(
-    @SerializedName("3h") var last3Hours: Double? = null
+    @SerialName("3h") var last3Hours: Double? = null
 )
 
+@Serializable
 data class Main(
-    @SerializedName("temp") var temp: Double? = null,
-    @SerializedName("feels_like") var feelsLike: Double? = null,
-    @SerializedName("temp_min") var tempMin: Double? = null,
-    @SerializedName("temp_max") var tempMax: Double? = null,
-    @SerializedName("pressure") var pressure: Int? = null,
-    @SerializedName("sea_level") var seaLevel: Int? = null,
-    @SerializedName("grnd_level") var grndLevel: Int? = null,
-    @SerializedName("humidity") var humidity: Int? = null,
-    @SerializedName("temp_kf") var tempKf: Double? = null
+    @SerialName("temp") var temp: Double? = null,
+    @SerialName("feels_like") var feelsLike: Double? = null,
+    @SerialName("temp_min") var tempMin: Double? = null,
+    @SerialName("temp_max") var tempMax: Double? = null,
+    @SerialName("pressure") var pressure: Int? = null,
+    @SerialName("sea_level") var seaLevel: Int? = null,
+    @SerialName("grnd_level") var grndLevel: Int? = null,
+    @SerialName("humidity") var humidity: Int? = null,
+    @SerialName("temp_kf") var tempKf: Double? = null
 )
 
+@Serializable
 data class Weather(
-    @SerializedName("id") var id: Int? = null,
-    @SerializedName("main") var main: String? = null,
-    @SerializedName("description") var description: String? = null,
-    @SerializedName("icon") var icon: String? = null
+    @SerialName("id") var id: Int? = null,
+    @SerialName("main") var main: String? = null,
+    @SerialName("description") var description: String? = null,
+    @SerialName("icon") var icon: String? = null
 )
 
+@Serializable
 data class Clouds(
-    @SerializedName("all") var all: Int? = null
+    @SerialName("all") var all: Int? = null
 )
 
+@Serializable
 data class Wind(
-    @SerializedName("speed") var speed: Double? = null,
-    @SerializedName("deg") var deg: Int? = null,
-    @SerializedName("gust") var gust: Double? = null
+    @SerialName("speed") var speed: Double? = null,
+    @SerialName("deg") var deg: Int? = null,
+    @SerialName("gust") var gust: Double? = null
 )
 
+@Serializable
 data class Sys(
-    @SerializedName("pod") var pod: String? = null
+    @SerialName("pod") var pod: String? = null
 )
 
+@Serializable
 data class UvIndexResponse(
-    @SerializedName("lat") val lat: Double,
-    @SerializedName("lon") val lon: Double,
-    @SerializedName("date_iso") val dateIso: String,
-    @SerializedName("date") val date: Long,
-    @SerializedName("value") val value: Double
+    @SerialName("lat") val lat: Double,
+    @SerialName("lon") val lon: Double,
+    @SerialName("date_iso") val dateIso: String,
+    @SerialName("date") val date: Long,
+    @SerialName("value") val value: Double
 )

@@ -14,7 +14,7 @@ import java.util.*
 @Composable
 fun CityCountry(weatherData: WeatherResponse?){
     if (weatherData != null) {
-        val timestamp = (weatherData?.list?.get(0)?.dt ?: 0L) * 1000
+        val timestamp = (weatherData.list[0].dt ?: 0L) * 1000
         val day = SimpleDateFormat("EEEE", Locale.getDefault()).format(Date(timestamp))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,

@@ -13,14 +13,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
+import dk.shape.dtu.weatherApp.model.data.citiesWeather
 import dk.shape.dtu.weatherApp.viewModel.fetchUvIndex
-import kotlin.math.ceil
+import dk.shape.dtu.weatherApp.viewModel.fetchWeatherDataByCity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitiesListScreen(
-    navController: NavController,
-    citiesWeather: MutableList<WeatherResponse>
+    navController: NavController
 ) {
     var searchQuery by remember { mutableStateOf("") }
     var previewWeather by remember { mutableStateOf<WeatherResponse?>(null) }
@@ -82,7 +82,7 @@ fun CitiesListScreen(
 
             LaunchedEffect(searchQuery) {
                 if (searchQuery.isNotBlank()) {
-                    fetchWeatherData(searchQuery) { weatherResponse ->
+                    fetchWeatherDataByCity(searchQuery) { weatherResponse ->
                         previewWeather = weatherResponse
                         previewWeather?.city?.coord?.let { coord ->
                             fetchUvIndex(coord.lat ?: 0.0, coord.lon ?: 0.0) { uv ->

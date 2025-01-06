@@ -73,7 +73,7 @@ fun Rain(weatherData: WeatherResponse?, modifier: Modifier = Modifier) {
 
 @Composable
 fun FeelsLike(weatherData: WeatherResponse?, modifier: Modifier = Modifier){
-    val FeelsLike = weatherData?.list?.get(0)?.main?.feelsLike
+    val feelsLike = weatherData?.list?.get(0)?.main?.feelsLike
 
     Column(
         modifier = modifier.background(Color(0xFF383838), shape = RoundedCornerShape(10.dp)).padding(16.dp),
@@ -99,7 +99,7 @@ fun FeelsLike(weatherData: WeatherResponse?, modifier: Modifier = Modifier){
 
         Row () {
             Text(
-                text = "${FeelsLike?.minus(273.15)?.toInt() ?: "--"}",
+                text = "${feelsLike?.minus(273.15)?.toInt() ?: "--"}",
                 style = MaterialTheme.typography.displayMedium,
                 color = Color.White,
                 fontWeight = FontWeight.ExtraBold,
