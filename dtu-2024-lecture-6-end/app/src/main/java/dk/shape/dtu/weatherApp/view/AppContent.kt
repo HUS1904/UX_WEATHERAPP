@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -20,10 +21,10 @@ import dk.shape.dtu.weatherApp.viewModel.fetchWeatherDataByCity
 import dk.shape.dtu.weatherApp.viewModel.fetchWeatherDataByCoordinates
 
 @Composable
-fun LocationScreen(
+fun AppContent(
     navController: NavController,
-    weatherData: WeatherResponse?,
-    uvIndex: Double?
+    weatherData: WeatherResponse,
+    uvIndex: Double
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -60,7 +61,52 @@ fun Location(
         }
     }
 
-    Box(Modifier.fillMaxSize(), Alignment.Center) {
-        LocationScreen(navController, weatherData, uvIndex)
+    // Only display AppContent if weather data is available
+    if (weatherData != null && uvIndex != null) {
+        Box(Modifier.fillMaxSize(), Alignment.Center) {
+            AppContent(navController, weatherData!!, uvIndex!!)
+        }
+    } else {
+        // Show a loading state or nothing
+        Box(Modifier.fillMaxSize(), Alignment.Center) {
+            Text("Loading...")
+        }
+    }
+}
+
+@Composable
+fun City(
+    cityName: String,
+    navController: NavController,
+    onWeatherFetched: (WeatherResponse?) -> Unit
+) {
+    var weatherData by remember { mutableStateOf<WeatherResponse?>(null) }
+    var uvIndex by remember { mutableStateOf<Double?>(null) }
+
+    LaunchedEffect(cityName) {
+        while (true) {
+            fetchWeatherDataByCity(cityName) { data ->
+                weatherData = data
+                onWeatherFetched(data)
+                data?.city?.coord?.let { coord ->
+                    fetchUvIndex(coord.lat ?: 0.0, coord.lon ?: 0.0) { uv ->
+                        uvIndex = uv
+                    }
+                }
+            }
+            kotlinx.coroutines.delay(5 * 60 * 1000L)
+        }
+    }
+
+    // Only display AppContent if weather data is available
+    if (weatherData != null && uvIndex != null) {
+        Box(Modifier.fillMaxSize(), Alignment.Center) {
+            AppContent(navController, weatherData!!, uvIndex!!)
+        }
+    } else {
+        // Show a loading state or nothing
+        Box(Modifier.fillMaxSize(), Alignment.Center) {
+            Text("Loading...")
+        }
     }
 }

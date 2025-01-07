@@ -24,7 +24,7 @@ import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable
-fun WeatherScreen(navController: NavController, weatherData: WeatherResponse?, uvIndex: Double?) {
+fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uvIndex: Double) {
     val imageOffsetX = remember { Animatable(300f) }
 
     LaunchedEffect(Unit) {
@@ -37,8 +37,8 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse?, u
         )
     }
 
-    val sunrise = weatherData?.city?.sunrise?.toLong() ?: 0L
-    val sunset = weatherData?.city?.sunset?.toLong() ?: 0L
+    val sunrise = weatherData.city?.sunrise?.toLong() ?: 0L
+    val sunset = weatherData.city?.sunset?.toLong() ?: 0L
     val centerOffset = remember { mutableStateOf(Offset.Zero) }
 
 
@@ -54,115 +54,111 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse?, u
             )
         }
 
-        if (weatherData == null) {
-            Text(text = "Loading weather data...", modifier = Modifier.align(Alignment.Center))
-        } else {
-            LazyColumn(
-                modifier = Modifier.fillMaxSize().padding(top = 56.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                item {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize().padding(top = 56.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            item {
+                Box(
+                    modifier = Modifier.fillMaxWidth().height(300.dp).background(Color.Transparent)
+                ) {
                     Box(
-                        modifier = Modifier.fillMaxWidth().height(300.dp).background(Color.Transparent)
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .onSizeChanged { size ->
-                                    centerOffset.value = Offset(size.width / 2f, size.height / 2f)
-                                }.graphicsLayer {
-                                    scaleX = 1.5f
-                                    scaleY = 1f
-                                }
-                                .background(
-                                    brush = Brush.radialGradient(
-                                        colors = listOf(Color.White.copy(alpha = 0.2f), Color.Transparent),
-                                        center = centerOffset.value,
-                                        radius = 400f
-                                    )
-                                )
-                                .blur(24.dp)
-                        )
-                        Image(
-                            painter = painterResource(
-                                id = getCurrentWeatherIconResource(
-                                    description = weatherData.list.firstOrNull()?.weather?.firstOrNull()?.description,
-                                    weatherData = weatherData,
-                                    sunrise = sunrise,
-                                    sunset = sunset
-                                )
-                            ),
-                            contentDescription = "Weather background",
-                            modifier = Modifier.fillMaxSize().alpha(0.4f).offset(x = imageOffsetX.value.dp).align(Alignment.Center)
-                        )
-
-                        Column(
-                            modifier = Modifier.align(Alignment.TopCenter).padding(top = 16.dp),
-                            horizontalAlignment = Alignment.CenterHorizontally
-                        ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                CityCountry(weatherData)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .onSizeChanged { size ->
+                                centerOffset.value = Offset(size.width / 2f, size.height / 2f)
+                            }.graphicsLayer {
+                                scaleX = 1.5f
+                                scaleY = 1f
                             }
-                            CurrentTemp(weatherData)
-                        }
-                    }
-                }
-
-                item { SunTimes(weatherData) }
-
-                item { Spacer(modifier = Modifier.height(20.dp)) }
-
-                item {
-                    HourlyForecast(
-                        forecasts = weatherData.list,
-                        weatherData = weatherData
+                            .background(
+                                brush = Brush.radialGradient(
+                                    colors = listOf(Color.White.copy(alpha = 0.2f), Color.Transparent),
+                                    center = centerOffset.value,
+                                    radius = 400f
+                                )
+                            )
+                            .blur(24.dp)
                     )
-                }
+                    Image(
+                        painter = painterResource(
+                            id = getCurrentWeatherIconResource(
+                                description = weatherData.list.firstOrNull()?.weather?.firstOrNull()?.description,
+                                weatherData = weatherData,
+                                sunrise = sunrise,
+                                sunset = sunset
+                            )
+                        ),
+                        contentDescription = "Weather background",
+                        modifier = Modifier.fillMaxSize().alpha(0.4f).offset(x = imageOffsetX.value.dp).align(Alignment.Center)
+                    )
 
-                item { Spacer(modifier = Modifier.height(20.dp)) }
-
-                item { WeeklyForecast(forecasts = weatherData.list) }
-
-                item { Spacer(modifier = Modifier.height(20.dp)) }
-
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                    Column(
+                        modifier = Modifier.align(Alignment.TopCenter).padding(top = 16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Rain(weatherData = weatherData, modifier = Modifier.weight(1f))
-
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        FeelsLike(weatherData = weatherData, modifier = Modifier.weight(1f))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            CityCountry(weatherData)
+                        }
+                        CurrentTemp(weatherData)
                     }
                 }
-
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
-                    ) {
-                        AirHumidity(weatherData = weatherData, modifier = Modifier.weight(1f))
-
-                        Spacer(modifier = Modifier.width(16.dp))
-
-                        UvDisplay(uvIndex, modifier = Modifier.weight(1f))
-                    }
-                }
-
-                item {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
-                    ) {
-                        WindAndDirectionRow(weatherData, modifier = Modifier.fillMaxWidth())
-                    }
-                }
-
-                item { Spacer(modifier = Modifier.height(20.dp)) }
             }
+
+            item { SunTimes(weatherData) }
+
+            item { Spacer(modifier = Modifier.height(20.dp)) }
+
+            item {
+                HourlyForecast(
+                    forecasts = weatherData.list,
+                    weatherData = weatherData
+                )
+            }
+
+            item { Spacer(modifier = Modifier.height(20.dp)) }
+
+            item { WeeklyForecast(forecasts = weatherData.list) }
+
+            item { Spacer(modifier = Modifier.height(20.dp)) }
+
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                ) {
+                    Rain(weatherData = weatherData, modifier = Modifier.weight(1f))
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    FeelsLike(weatherData = weatherData, modifier = Modifier.weight(1f))
+                }
+            }
+
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                ) {
+                    AirHumidity(weatherData = weatherData, modifier = Modifier.weight(1f))
+
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    UvDisplay(uvIndex, modifier = Modifier.weight(1f))
+                }
+            }
+
+            item {
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                ) {
+                    WindAndDirectionRow(weatherData, modifier = Modifier.fillMaxWidth())
+                }
+            }
+
+            item { Spacer(modifier = Modifier.height(20.dp)) }
         }
     }
 }
