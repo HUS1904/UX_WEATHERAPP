@@ -8,17 +8,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
-import dk.shape.dtu.weatherApp.viewModel.fetchUvIndex
-import dk.shape.dtu.weatherApp.viewModel.fetchWeatherDataByCity
-import dk.shape.dtu.weatherApp.viewModel.fetchWeatherDataByCoordinates
+import dk.shape.dtu.weatherApp.viewModel.CityViewModel
+import dk.shape.dtu.weatherApp.viewModel.LocationViewModel
 
 @Composable
 fun AppContent(
@@ -41,24 +38,14 @@ fun Location(
     latitude: Double,
     longitude: Double,
     navController: NavController,
+    viewModel: LocationViewModel,
     onWeatherFetched: (WeatherResponse?) -> Unit
 ) {
-    var weatherData by remember { mutableStateOf<WeatherResponse?>(null) }
-    var uvIndex by remember { mutableStateOf<Double?>(null) }
+    val weatherData by viewModel.weatherData.observeAsState()
+    val uvIndex by viewModel.uvIndex.observeAsState()
 
     LaunchedEffect(latitude, longitude) {
-        while (true) {
-            fetchWeatherDataByCoordinates(latitude, longitude) { data ->
-                weatherData = data
-                onWeatherFetched(data)
-                data?.city?.coord?.let { coord ->
-                    fetchUvIndex(coord.lat ?: 0.0, coord.lon ?: 0.0) { uv ->
-                        uvIndex = uv
-                    }
-                }
-            }
-            kotlinx.coroutines.delay(5 * 60 * 1000L)
-        }
+        viewModel.startFetchingWeather(latitude, longitude, onWeatherFetched)
     }
 
     // Only display AppContent if weather data is available
@@ -78,24 +65,15 @@ fun Location(
 fun City(
     cityName: String,
     navController: NavController,
-    onWeatherFetched: (WeatherResponse?) -> Unit
+    viewModel: CityViewModel,
+    onWeatherFetched: (WeatherResponse?) -> Unit,
 ) {
-    var weatherData by remember { mutableStateOf<WeatherResponse?>(null) }
-    var uvIndex by remember { mutableStateOf<Double?>(null) }
+    val weatherData by viewModel.weatherData.observeAsState()
+    val uvIndex by viewModel.uvIndex.observeAsState()
 
+    // Start fetching weather data when this composable becomes active
     LaunchedEffect(cityName) {
-        while (true) {
-            fetchWeatherDataByCity(cityName) { data ->
-                weatherData = data
-                onWeatherFetched(data)
-                data?.city?.coord?.let { coord ->
-                    fetchUvIndex(coord.lat ?: 0.0, coord.lon ?: 0.0) { uv ->
-                        uvIndex = uv
-                    }
-                }
-            }
-            kotlinx.coroutines.delay(5 * 60 * 1000L)
-        }
+        viewModel.startFetchingWeather(cityName, onWeatherFetched)
     }
 
     // Only display AppContent if weather data is available

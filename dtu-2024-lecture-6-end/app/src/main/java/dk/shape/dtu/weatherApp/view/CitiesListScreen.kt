@@ -4,27 +4,31 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.*
 import androidx.compose.material.icons.*
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
+import dk.shape.dtu.weatherApp.model.data.CitiesList
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
-import dk.shape.dtu.weatherApp.model.data.citiesWeather
-import dk.shape.dtu.weatherApp.viewModel.fetchUvIndex
-import dk.shape.dtu.weatherApp.viewModel.fetchWeatherDataByCity
+import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CitiesListScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: CitiesListViewModel,
 ) {
-    var searchQuery by remember { mutableStateOf("") }
-    var previewWeather by remember { mutableStateOf<WeatherResponse?>(null) }
-    var previewUvIndex by remember { mutableStateOf<Double?>(null) }
+    // Observing LiveData values from the ViewModel
+    val searchQuery by viewModel.searchQuery.observeAsState("")
+    val previewWeather by viewModel.previewWeather.observeAsState()
+    val previewUvIndex by viewModel.previewUvIndex.observeAsState()
+    val savedCities by viewModel.savedCities.observeAsState(emptyList())
 
     Scaffold(
         topBar = {
@@ -39,7 +43,11 @@ fun CitiesListScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Color(0xFFE2376C))
+                        Icon(
+                            Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color(0xFFE2376C)
+                        )
                     }
                 },
                 modifier = Modifier.padding(9.dp),
@@ -47,18 +55,29 @@ fun CitiesListScreen(
             )
         },
         containerColor = Color(0xFF282828)
-    ) {
-        paddingValues ->
+    ) { paddingValues ->
         Column(
-            modifier = Modifier.fillMaxSize().padding(paddingValues)
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
         ) {
+            // Search Box
             Box(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp).background(Color(0xFF383838), shape = MaterialTheme.shapes.extraLarge)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .background(Color(0xFF383838), shape = MaterialTheme.shapes.extraLarge)
             ) {
                 TextField(
                     value = searchQuery,
-                    onValueChange = { searchQuery = it },
-                    placeholder = { Text("Search for a city", color = Color.Gray, fontSize = 17.sp) },
+                    onValueChange = { viewModel.onSearchQueryChanged(it) },
+                    placeholder = {
+                        Text(
+                            "Search for a city",
+                            color = Color.Gray,
+                            fontSize = 17.sp
+                        )
+                    },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -66,7 +85,9 @@ fun CitiesListScreen(
                             tint = Color(0xFFE2376C)
                         )
                     },
-                    modifier = Modifier.fillMaxWidth().background(Color.Transparent),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.Transparent),
                     colors = TextFieldDefaults.colors(
                         focusedTextColor = Color.White,
                         unfocusedTextColor = Color.White,
@@ -80,46 +101,25 @@ fun CitiesListScreen(
                 )
             }
 
-            LaunchedEffect(searchQuery) {
-                if (searchQuery.isNotBlank()) {
-                    fetchWeatherDataByCity(searchQuery) { weatherResponse ->
-                        previewWeather = weatherResponse
-                        previewWeather?.city?.coord?.let { coord ->
-                            fetchUvIndex(coord.lat ?: 0.0, coord.lon ?: 0.0) { uv ->
-                                previewUvIndex = uv
-                            }
-                        }
-                    }
-                } else {
-                    previewWeather = null
-                    previewUvIndex = null
-                }
-            }
-
+            // Preview Weather
             previewWeather?.let { weather ->
                 CitySearchResult(
                     weatherResponse = weather,
-                    onAddCity = {
-                        if (!citiesWeather.any { it.city?.name == weather.city?.name }) {
-                            citiesWeather.add(weather)
-                            previewWeather = null
-                            previewUvIndex = null
-                            searchQuery = ""
-                        }
-                    },
+                    onAddCity = { CitiesList.addCityToList(weather) },
                     isPreview = true
                 )
             }
 
+            // Saved Cities
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(16.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(citiesWeather) { weatherResponse ->
+                items(savedCities) { weatherResponse ->
                     CityItem(
                         weatherResponse = weatherResponse,
-                        uvIndex = null,
+                        uvIndex = previewUvIndex,  // You can pass the UV Index here if needed
                         onCityClick = { cityName ->
                             navController.navigate("weatherScreen/$cityName")
                         }
