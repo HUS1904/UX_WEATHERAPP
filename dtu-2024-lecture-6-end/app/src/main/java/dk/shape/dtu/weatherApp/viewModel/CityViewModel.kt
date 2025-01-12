@@ -21,15 +21,17 @@ class CityViewModel : ViewModel() {
             while (true) {
                 Log.d("CityViewModel", "Fetching weather data...")
                 fetchWeatherDataByCity(cityName) { data ->
-                    _weatherData.value = data
-                    onWeatherFetched(data)
-                    data?.city?.coord?.let { coord ->
-                        fetchUvIndex(coord.lat ?: 0.0, coord.lon ?: 0.0) { uv ->
-                            _uvIndex.value = uv
+                    if(data != null){
+                        _weatherData.value = data
+                        onWeatherFetched(data)
+                        data.city?.coord?.let {
+                            fetchUvIndex(it.lat ?: 0.0, it.lon ?: 0.0) { uv ->
+                                _uvIndex.value = uv
+                            }
                         }
                     }
                 }
-                delay(5 * 60 * 1000L)
+                delay(5 * 60 * 1L)
             }
         }
     }
