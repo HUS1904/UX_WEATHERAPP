@@ -31,7 +31,7 @@ class CityViewModel : ViewModel() {
                         }
                     }
                 }
-                delay(5 * 60 * 1L)
+                delay(5 * 60 * 1000L)
             }
         }
     }
