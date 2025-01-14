@@ -7,7 +7,7 @@ object CitiesList {
 
     fun addCityToList(newCityWeather: WeatherResponse?) {
         if (newCityWeather != null && citiesWeather.value?.none{it.city?.name == newCityWeather.city?.name} == true) {
-            citiesWeather.value = citiesWeather.value?.plus(newCityWeather)
+            citiesWeather.postValue(citiesWeather.value?.plus(newCityWeather))
         }
     }
 }

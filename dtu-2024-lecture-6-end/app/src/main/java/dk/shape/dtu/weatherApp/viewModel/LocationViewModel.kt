@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
+import fetchUvIndex
+import fetchWeatherDataByCoordinates
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -21,12 +23,14 @@ class LocationViewModel : ViewModel() {
             while (true) {
                 Log.d("LocationViewModel", "Fetching weather data...")
                 fetchWeatherDataByCoordinates(latitude, longitude) { data ->
-                    if(data != null){
-                        _weatherData.value = data
+                    if (data != null){
+                        _weatherData.postValue(data)
                         onWeatherFetched(data)
                         data.city?.coord?.let {
-                            fetchUvIndex(it.lat ?: 0.0, it.lon ?: 0.0) { uv ->
-                                _uvIndex.value = uv
+                            viewModelScope.launch {
+                                fetchUvIndex(it.lat ?: 0.0, it.lon ?: 0.0) { uv ->
+                                    _uvIndex.postValue(uv)
+                                }
                             }
                         }
                     }

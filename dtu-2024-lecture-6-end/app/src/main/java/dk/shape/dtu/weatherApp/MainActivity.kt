@@ -1,5 +1,6 @@
 package dk.shape.dtu.weatherApp
 
+import RetrofitInstance
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        RetrofitInstance.initialize(this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
