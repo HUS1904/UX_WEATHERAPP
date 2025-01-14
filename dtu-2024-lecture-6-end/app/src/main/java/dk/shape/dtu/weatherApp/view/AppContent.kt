@@ -44,6 +44,7 @@ fun Location(
     val weatherData by viewModel.weatherData.observeAsState()
     val uvIndex by viewModel.uvIndex.observeAsState()
 
+    // Start fetching weather data when this composable becomes active
     LaunchedEffect(latitude, longitude) {
         viewModel.startFetchingWeather(latitude, longitude, onWeatherFetched)
     }
@@ -54,7 +55,7 @@ fun Location(
             AppContent(navController, weatherData!!, uvIndex!!)
         }
     } else {
-        // Show a loading state or nothing
+        // Show a loading state
         Box(Modifier.fillMaxSize(), Alignment.Center) {
             Text("Loading...")
         }
@@ -82,7 +83,7 @@ fun City(
             AppContent(navController, weatherData!!, uvIndex!!)
         }
     } else {
-        // Show a loading state or nothing
+        // Show a loading state
         Box(Modifier.fillMaxSize(), Alignment.Center) {
             Text("Loading...")
         }
