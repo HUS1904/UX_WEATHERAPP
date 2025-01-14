@@ -19,7 +19,7 @@ object RetrofitInstance {
     private var context: Context? = null
 
     fun initialize(context: Context) {
-        this.context = context.applicationContext // Use the application context
+        this.context = context.applicationContext
     }
 
     @SuppressLint("StaticFieldLeak")

@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RetrofitInstance.initialize(this)
+        RetrofitInstance.initialize(applicationContext)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
