@@ -20,9 +20,11 @@ import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import kotlin.math.ceil
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
 
 @Composable
 fun CityItem(
+    viewModel: CitiesListViewModel,
     weatherResponse: WeatherResponse,
     uvIndex: Double?,
     onCityClick: (String) -> Unit
@@ -92,7 +94,9 @@ fun CityItem(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
 
-                var isFilled by remember { mutableStateOf(false) } // State to track fill status
+                var isFilled by remember {
+                    mutableStateOf(viewModel.isFavorite(city)) // Initialize state based on the current favorite status
+                }
 
                 Icon(
                     imageVector = if (isFilled) Icons.Filled.Star else Icons.Outlined.Star,
@@ -100,7 +104,12 @@ fun CityItem(
                     tint = if (isFilled) Color.Yellow else Color.Gray,
                     modifier = Modifier
                         .padding(4.dp)
-                        .clickable { isFilled = !isFilled } // Toggle fill on click
+                        .clickable {
+                            viewModel.removeCityFromSaved(weatherResponse) // Remove the city
+                            viewModel.toggleFavorite(city) // Toggle the favorite status
+                            viewModel.addCityToSaved(weatherResponse) // Re-add the city
+                            isFilled = !isFilled // Update the local state
+                        }
                 )
 
                 Text(text = "Humidity: $humidity%", style = MaterialTheme.typography.bodySmall, color = Color.White)
@@ -110,4 +119,5 @@ fun CityItem(
         }
     }
 }
+
 
