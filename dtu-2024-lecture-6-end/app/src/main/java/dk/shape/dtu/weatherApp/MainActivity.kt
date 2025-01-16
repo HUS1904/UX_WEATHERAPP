@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.*
 import com.google.android.gms.location.*
+import dk.shape.dtu.weatherApp.model.data.CitiesList
 import dk.shape.dtu.weatherApp.model.data.CitiesList.addCityToList
 import dk.shape.dtu.weatherApp.model.data.getLastKnownLocation
 import dk.shape.dtu.weatherApp.view.CitiesListScreen
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         RetrofitInstance.initialize(applicationContext)
+        CitiesList.initialize(applicationContext)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
