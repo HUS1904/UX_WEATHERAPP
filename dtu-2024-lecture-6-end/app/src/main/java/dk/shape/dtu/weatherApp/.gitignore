@@ -1,0 +1,38 @@
+../.idea/
+
+# Android Studio/IntelliJ IDE files
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+/shelf/
+/.idea/gradle.xml
+/.idea/misc.xml
+
+
+# macOS system files
+.DS_Store
+
+# Build outputs
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Local properties
+local.properties
+
+# APK files
+*.apk
+
+# Logs and temporary files
+*.log
+.temp
+
+# Android test results
+/outputs/
