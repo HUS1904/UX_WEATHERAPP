@@ -15,7 +15,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.CitiesList
-import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,7 +27,7 @@ fun CitiesListScreen(
     val searchQuery by viewModel.searchQuery.observeAsState("")
     val previewWeather by viewModel.previewWeather.observeAsState()
     val previewUvIndex by viewModel.previewUvIndex.observeAsState()
-    val savedCities by viewModel.savedCities.observeAsState(emptyList())
+    val citiesWeather by CitiesList.citiesWeather.observeAsState(emptyMap())
 
     Scaffold(
         topBar = {
@@ -111,8 +110,8 @@ fun CitiesListScreen(
             }
 
             // Combined List with Favorites first
-            val favoriteCities = savedCities.filter { it.city?.name?.let { viewModel.isFavorite(it) } == true }
-            val otherCities = savedCities.filter { it.city?.name?.let { viewModel.isFavorite(it) } == false }
+            val favoriteCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == true }.toList()
+            val otherCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == false }.toList()
 
             // Combined list where favorites come first
             val combinedCities = favoriteCities + otherCities
@@ -126,7 +125,6 @@ fun CitiesListScreen(
                 ) {
                     items(combinedCities) { weatherResponse ->
                         CityItem(
-                            viewModel = viewModel,
                             weatherResponse = weatherResponse,
                             uvIndex = previewUvIndex,
                             onCityClick = { cityName ->

@@ -7,10 +7,6 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -19,18 +15,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import kotlin.math.ceil
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
+import dk.shape.dtu.weatherApp.model.data.CitiesList
 
 @Composable
 fun CityItem(
-    viewModel: CitiesListViewModel,
     weatherResponse: WeatherResponse,
     uvIndex: Double?,
     onCityClick: (String) -> Unit
 ) {
-    val savedCities by viewModel.savedCities.observeAsState(emptyList())
     val city = weatherResponse.city?.name ?: "Unknown City"
     val country = weatherResponse.city?.country ?: "Unknown Country"
     val description = weatherResponse.list.firstOrNull()?.weather?.firstOrNull()?.description ?: "No data"
@@ -99,15 +91,15 @@ fun CityItem(
 
 
                 Icon(
-                    imageVector = if (viewModel.isFavorite(city)) Icons.Filled.Star else Icons.Outlined.Star,
+                    imageVector = if (CitiesList.isFavourite(city)) Icons.Filled.Star else Icons.Outlined.Star,
                     contentDescription = "Star Icon",
-                    tint = if (viewModel.isFavorite(city)) Color.Yellow else Color.Gray,
+                    tint = if (CitiesList.isFavourite(city)) Color.Yellow else Color.Gray,
                     modifier = Modifier
                         .padding(4.dp)
                         .clickable {
-                            viewModel.removeCityFromSaved(weatherResponse) // Remove the city
-                            viewModel.toggleFavorite(city) // Toggle the favorite status
-                            viewModel.addCityToList(weatherResponse) // Re-add the city
+                            CitiesList.removeCityFromList(weatherResponse) // Remove the city
+                            CitiesList.toggleFavourite(city) // Toggle the favorite status
+                            CitiesList.addCityToList(weatherResponse) // Re-add the city
                         }
                 )
 
