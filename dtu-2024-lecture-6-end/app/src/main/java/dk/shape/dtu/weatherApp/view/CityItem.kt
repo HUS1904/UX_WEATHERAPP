@@ -2,8 +2,14 @@ package dk.shape.dtu.weatherApp.view
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -12,6 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import kotlin.math.ceil
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 @Composable
 fun CityItem(
@@ -83,6 +91,18 @@ fun CityItem(
                 horizontalAlignment = Alignment.End,
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
+
+                var isFilled by remember { mutableStateOf(false) } // State to track fill status
+
+                Icon(
+                    imageVector = if (isFilled) Icons.Filled.Star else Icons.Outlined.Star,
+                    contentDescription = "Star Icon",
+                    tint = if (isFilled) Color.Yellow else Color.Gray,
+                    modifier = Modifier
+                        .padding(4.dp)
+                        .clickable { isFilled = !isFilled } // Toggle fill on click
+                )
+
                 Text(text = "Humidity: $humidity%", style = MaterialTheme.typography.bodySmall, color = Color.White)
                 Text(text = "Rain: ${"%.1f".format(rainVolume)} mm", style = MaterialTheme.typography.bodySmall, color = Color.White)
                 Text(text = "UV Index: ${"%.1f".format(uvIndex ?: 0.0)}", style = MaterialTheme.typography.bodySmall, color = Color.White)
