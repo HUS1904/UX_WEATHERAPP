@@ -110,54 +110,21 @@ fun CitiesListScreen(
                 )
             }
 
-            // Favorites Section
+            // Combined List with Favorites first
             val favoriteCities = savedCities.filter { it.city?.name?.let { viewModel.isFavorite(it) } == true }
-            if (favoriteCities.isNotEmpty()) {
-                Text(
-                    text = "Favorites",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                )
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp), // Fixed height for favorites
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(favoriteCities) { weatherResponse ->
-                        CityItem(
-                            viewModel = viewModel,
-                            weatherResponse = weatherResponse,
-                            uvIndex = previewUvIndex,
-                            onCityClick = { cityName ->
-                                navController.navigate("weatherScreen/$cityName")
-                            }
-                        )
-                    }
-                }
-            }
-
-            // Other Cities Section
             val otherCities = savedCities.filter { it.city?.name?.let { viewModel.isFavorite(it) } == false }
-            if (otherCities.isNotEmpty()) {
-                Text(
-                    text = "Saved cities",
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = Color.White,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 16.dp, top = 16.dp)
-                )
+
+            // Combined list where favorites come first
+            val combinedCities = favoriteCities + otherCities
+
+            if (combinedCities.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(300.dp), // Fixed height for saved cities
-                    contentPadding = PaddingValues(16.dp),
+                        .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(otherCities) { weatherResponse ->
+                    items(combinedCities) { weatherResponse ->
                         CityItem(
                             viewModel = viewModel,
                             weatherResponse = weatherResponse,
@@ -172,6 +139,5 @@ fun CitiesListScreen(
         }
     }
 }
-
 
 

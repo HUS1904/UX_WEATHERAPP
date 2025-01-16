@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 class CitiesListViewModel : ViewModel() {
     val searchQuery = MutableLiveData("")  // Stores the current search query
 
-    val previewWeather = MutableLiveData<WeatherResponse?>(null)  // Stores the weather data preview
+    var previewWeather = MutableLiveData<WeatherResponse?>(null)  // Stores the weather data preview
 
     val previewUvIndex = MutableLiveData<Double?>(null)  // Stores the UV index preview
 
@@ -22,7 +22,7 @@ class CitiesListViewModel : ViewModel() {
 
     // HashMap to track favorite status of cities (name -> isFavorite)
     private val _favoriteCities = MutableLiveData<Map<String, Boolean>>(emptyMap())
-    val favoriteCities: LiveData<Map<String, Boolean>> = _favoriteCities
+
 
     // Function to handle search query changes
     fun onSearchQueryChanged(query: String) {
@@ -61,7 +61,9 @@ class CitiesListViewModel : ViewModel() {
         savedCities.value = savedCities.value?.filterNot { it.city?.name == weatherResponse.city?.name }
     }
 
-    fun addCityToSaved(weatherResponse: WeatherResponse) {
-        savedCities.value = savedCities.value?.toMutableList()?.apply { add(weatherResponse) }
+    fun addCityToList(newCityWeather: WeatherResponse?) {
+        if (newCityWeather != null && citiesWeather.value?.none { it.city?.name == newCityWeather.city?.name } == true) {
+            citiesWeather.postValue(citiesWeather.value?.plus(newCityWeather))
+        }
     }
 }

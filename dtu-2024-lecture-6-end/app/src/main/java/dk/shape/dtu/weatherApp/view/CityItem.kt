@@ -8,6 +8,7 @@ import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.*
@@ -29,6 +30,7 @@ fun CityItem(
     uvIndex: Double?,
     onCityClick: (String) -> Unit
 ) {
+    val savedCities by viewModel.savedCities.observeAsState(emptyList())
     val city = weatherResponse.city?.name ?: "Unknown City"
     val country = weatherResponse.city?.country ?: "Unknown Country"
     val description = weatherResponse.list.firstOrNull()?.weather?.firstOrNull()?.description ?: "No data"
@@ -94,21 +96,18 @@ fun CityItem(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
 
-                var isFilled by remember {
-                    mutableStateOf(viewModel.isFavorite(city)) // Initialize state based on the current favorite status
-                }
+
 
                 Icon(
-                    imageVector = if (isFilled) Icons.Filled.Star else Icons.Outlined.Star,
+                    imageVector = if (viewModel.isFavorite(city)) Icons.Filled.Star else Icons.Outlined.Star,
                     contentDescription = "Star Icon",
-                    tint = if (isFilled) Color.Yellow else Color.Gray,
+                    tint = if (viewModel.isFavorite(city)) Color.Yellow else Color.Gray,
                     modifier = Modifier
                         .padding(4.dp)
                         .clickable {
                             viewModel.removeCityFromSaved(weatherResponse) // Remove the city
                             viewModel.toggleFavorite(city) // Toggle the favorite status
-                            viewModel.addCityToSaved(weatherResponse) // Re-add the city
-                            isFilled = !isFilled // Update the local state
+                            viewModel.addCityToList(weatherResponse) // Re-add the city
                         }
                 )
 
