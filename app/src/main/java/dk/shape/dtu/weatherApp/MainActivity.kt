@@ -2,6 +2,7 @@ package dk.shape.dtu.weatherApp
 
 import RetrofitInstance
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         RetrofitInstance.initialize(applicationContext)
-        CitiesList.initialize(applicationContext)
+        CitiesList.initialize(applicationContext.getSharedPreferences("CitiesList", Context.MODE_PRIVATE), this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 

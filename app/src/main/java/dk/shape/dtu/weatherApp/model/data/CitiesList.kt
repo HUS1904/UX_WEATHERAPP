@@ -1,23 +1,20 @@
 package dk.shape.dtu.weatherApp.model.data
 
-import android.annotation.SuppressLint
-import android.content.Context
 import android.content.SharedPreferences
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
-@SuppressLint("StaticFieldLeak")
 object CitiesList {
     lateinit var citiesWeather: MutableLiveData<Map<WeatherResponse, Boolean>>
 
-    private var context: Context? = null
     private lateinit var sharedPreferences: SharedPreferences
     private val json = Json { allowStructuredMapKeys = true }
 
-    fun initialize(context: Context) {
-        this.context = context.applicationContext
-        sharedPreferences = context.getSharedPreferences("CitiesList", Context.MODE_PRIVATE)
+    fun initialize(sharedPreferences: SharedPreferences, lifecycleOwner: LifecycleOwner) {
+        this.sharedPreferences = sharedPreferences
 
         // Check if cached data exists in SharedPreferences
         val cachedData = sharedPreferences.getString("citiesWeather", null)
@@ -28,18 +25,20 @@ object CitiesList {
         } else {
             MutableLiveData(emptyMap())
         }
+
+        citiesWeather.observe(lifecycleOwner) {
+            saveCitiesWeatherToPreferences()
+        }
     }
 
     fun addCityToList(newCityWeather: WeatherResponse?) {
         if (newCityWeather != null && citiesWeather.value?.none{it.key.city?.name == newCityWeather.city?.name} == true) {
             citiesWeather.postValue(citiesWeather.value?.plus(Pair(newCityWeather, false)))
         }
-        saveCitiesWeatherToPreferences()
     }
 
     fun removeCityFromList(weatherResponse: WeatherResponse) {
         citiesWeather.postValue(citiesWeather.value?.filterNot { it.key.city?.name == weatherResponse.city?.name })
-        saveCitiesWeatherToPreferences()
     }
 
     fun toggleFavourite(cityName: String) {
@@ -52,7 +51,6 @@ object CitiesList {
 
             citiesWeather.postValue(updatedMap)
         }
-        saveCitiesWeatherToPreferences()
     }
 
     fun isFavourite(cityName: String): Boolean {
