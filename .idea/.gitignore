@@ -1,18 +1,18 @@
 # Ignore all IDE settings
-/.idea/
+.idea/
 *.iml
 
 # Android Studio/IntelliJ specific files
 .gradle
 /local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-/.idea/gradle.xml
-/.idea/misc.xml
+.idea/caches
+.idea/libraries
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/gradle.xml
+.idea/misc.xml
 /shelf/
 
 # macOS system files
@@ -21,11 +21,11 @@
 # Build outputs and intermediate files
 /build/
 /captures/
-/externalNativeBuild/
-/cxx/
-/outputs/
-/app/build/
-/app/intermediates/
+.externalNativeBuild/
+.cxx/
+.outputs/
+.app/build/
+.app/intermediates/
 
 # Local properties
 local.properties
@@ -46,7 +46,7 @@ local.properties
 /output-metadata.json
 /*.json
 /merged.dir/
-/multi-v2/
+.multi-v2/
 
 # Class and Dex files
 *.dex
