@@ -81,7 +81,7 @@ fun CitiesListScreen(
                         Icon(
                             imageVector = Icons.Default.Search,
                             contentDescription = "Search Icon",
-                            tint = Color(0xFFE2376C)
+                            tint = Color(0xFFFFFFFF)
                         )
                     },
                     modifier = Modifier
@@ -129,6 +129,9 @@ fun CitiesListScreen(
                             uvIndex = previewUvIndex,
                             onCityClick = { cityName ->
                                 navController.navigate("weatherScreen/$cityName")
+                            },
+                            onCityRemove = { removedCity ->
+                                CitiesList.removeCityFromList(removedCity)
                             }
                         )
                     }

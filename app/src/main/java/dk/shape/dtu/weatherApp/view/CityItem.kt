@@ -3,6 +3,7 @@ package dk.shape.dtu.weatherApp.view
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
@@ -21,7 +22,8 @@ import dk.shape.dtu.weatherApp.model.data.CitiesList
 fun CityItem(
     weatherResponse: WeatherResponse,
     uvIndex: Double?,
-    onCityClick: (String) -> Unit
+    onCityClick: (String) -> Unit,
+    onCityRemove: (WeatherResponse) -> Unit
 ) {
     val city = weatherResponse.city?.name ?: "Unknown City"
     val country = weatherResponse.city?.country ?: "Unknown Country"
@@ -87,22 +89,39 @@ fun CityItem(
                 horizontalAlignment = Alignment.End,
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically, // Align icons vertically
+                    horizontalArrangement = Arrangement.spacedBy(2.dp) // Add spacing between trash and star icons
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Remove City",
+                        tint = Color(0xFFE2376C),
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .size(24.dp)
+                            //.offset(x = (6).dp, y = (10).dp)
+                            .clickable {
+                                onCityRemove(weatherResponse)
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
 
-
-
-                Icon(
-                    imageVector = if (CitiesList.isFavourite(city)) Icons.Filled.Star else Icons.Outlined.Star,
-                    contentDescription = "Star Icon",
-                    tint = if (CitiesList.isFavourite(city)) Color.Yellow else Color.Gray,
-                    modifier = Modifier
-                        .padding(4.dp)
-                        .clickable {
-                            CitiesList.removeCityFromList(weatherResponse) // Remove the city
-                            CitiesList.toggleFavourite(city) // Toggle the favorite status
-                            CitiesList.addCityToList(weatherResponse) // Re-add the city
-                        }
-                )
-
+                    Icon(
+                        imageVector = if (CitiesList.isFavourite(city)) Icons.Filled.Star else Icons.Outlined.Star,
+                        contentDescription = "Star Icon",
+                        tint = if (CitiesList.isFavourite(city)) Color.Yellow else Color.Gray,
+                        modifier = Modifier
+                            .padding(4.dp)
+                            .size(24.dp)
+                            //.offset(x = (-24).dp, y = (-30).dp)
+                            .clickable {
+                                CitiesList.removeCityFromList(weatherResponse) // Remove the city
+                                CitiesList.toggleFavourite(city) // Toggle the favorite status
+                                CitiesList.addCityToList(weatherResponse) // Re-add the city
+                            }
+                    )
+                }
                 Text(text = "Humidity: $humidity%", style = MaterialTheme.typography.bodySmall, color = Color.White)
                 Text(text = "Rain: ${"%.1f".format(rainVolume)} mm", style = MaterialTheme.typography.bodySmall, color = Color.White)
                 Text(text = "UV Index: ${"%.1f".format(uvIndex ?: 0.0)}", style = MaterialTheme.typography.bodySmall, color = Color.White)
