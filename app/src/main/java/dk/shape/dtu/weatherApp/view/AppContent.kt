@@ -16,6 +16,9 @@ import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import dk.shape.dtu.weatherApp.viewModel.CityViewModel
 import dk.shape.dtu.weatherApp.viewModel.LocationViewModel
+import androidx.compose.material3.*
+
+
 
 @Composable
 fun AppContent(
@@ -48,16 +51,25 @@ fun Location(
     LaunchedEffect(latitude, longitude) {
         viewModel.startFetchingWeather(latitude, longitude, onWeatherFetched)
     }
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = Color(0xFF282828) // Match app's primary background color
+    ) {
 
-    // Only display AppContent if weather data is available
-    if (weatherData != null && uvIndex != null) {
-        Box(Modifier.fillMaxSize(), Alignment.Center) {
-            AppContent(navController, weatherData!!, uvIndex!!)
-        }
-    } else {
-        // Show a loading state
-        Box(Modifier.fillMaxSize(), Alignment.Center) {
-            Text("Loading...")
+        // Only display AppContent if weather data is available
+        if (weatherData != null && uvIndex != null) {
+            Box(Modifier.fillMaxSize(), Alignment.Center) {
+                AppContent(navController, weatherData!!, uvIndex!!)
+            }
+        } else {
+            // Show a loading state
+            Box(Modifier.fillMaxSize(), Alignment.Center) {
+                Text(
+                    text = "Loading...",
+                    color = Color(0xFFE2376C), // Custom text color
+                    style = MaterialTheme.typography.bodyLarge // Optional style
+                )
+            }
         }
     }
 }

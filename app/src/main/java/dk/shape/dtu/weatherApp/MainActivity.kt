@@ -21,6 +21,8 @@ import dk.shape.dtu.weatherApp.view.Location
 import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
 import dk.shape.dtu.weatherApp.viewModel.CityViewModel
 import dk.shape.dtu.weatherApp.viewModel.LocationViewModel
+import androidx.navigation.compose.rememberNavController
+import dk.shape.dtu.weatherApp.utils.setStatusBarColor
 
 class MainActivity : ComponentActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -28,10 +30,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         RetrofitInstance.initialize(applicationContext)
+        setStatusBarColor(window, color = "#282828", isLightIcons = false)
         CitiesList.initialize(applicationContext.getSharedPreferences("CitiesList", Context.MODE_PRIVATE), this)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
