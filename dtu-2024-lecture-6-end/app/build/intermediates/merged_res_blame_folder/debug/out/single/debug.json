@@ -1,0 +1,158 @@
+[
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_snow.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/snow.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_ic_launcher_background.xml.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_air.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/air.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_rain.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/rain.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-anydpi/ic_launcher.xml"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/xml_backup_rules.xml.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_nbackmoon.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/nbackmoon.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_sun.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/sun.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_nbacksnow.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/nbacksnow.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_feels.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/feels.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_drizzle.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/drizzle.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/xml_data_extraction_rules.xml.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-anydpi_ic_launcher_round.xml.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-anydpi/ic_launcher_round.xml"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_moon.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/moon.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_sun2.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/sun2.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_nbackstorm.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/nbackstorm.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_nbacksun.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/nbacksun.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_drops.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/drops.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_sunset.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/sunset.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_humidity.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/humidity.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_thunderstorm.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/thunderstorm.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_fog.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/fog.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_nbackfog.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/nbackfog.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_nbackcloud.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/nbackcloud.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_cloud.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/cloud.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_nbackrain.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/nbackrain.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_sunrise.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/sunrise.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/drawable_midnight.png.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/drawable/midnight.png"
+    },
+    {
+        "merged": "dk.shape.dtu.stateincompose.app-merged_res-60:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "dk.shape.dtu.stateincompose.app-main-62:/mipmap-xxhdpi/ic_launcher.webp"
+    }
+]
