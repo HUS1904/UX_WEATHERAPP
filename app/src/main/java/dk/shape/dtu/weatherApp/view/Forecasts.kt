@@ -175,7 +175,7 @@ fun WeeklyForecast(forecasts: List<WeatherData>) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = forecast.day,
+                    text = if (isFirstItem) "Today" else forecast.day,
                     color = Color.White,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
