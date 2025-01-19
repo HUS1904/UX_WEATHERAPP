@@ -23,7 +23,7 @@ fun CitiesListScreen(
     navController: NavController,
     viewModel: CitiesListViewModel,
 ) {
-    // Observing LiveData values from the ViewModel
+
     val searchQuery by viewModel.searchQuery.observeAsState("")
     val previewWeather by viewModel.previewWeather.observeAsState()
     val previewUvIndex by viewModel.previewUvIndex.observeAsState()
@@ -140,5 +140,3 @@ fun CitiesListScreen(
         }
     }
 }
-
-

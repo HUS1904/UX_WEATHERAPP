@@ -21,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
+import androidx.compose.foundation.layout.padding
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable
@@ -43,19 +44,29 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uv
 
 
     Box(modifier = Modifier.fillMaxSize()) {
-        IconButton(
-            onClick = { navController.navigate("citiesListScreen") },
-            modifier = Modifier.align(Alignment.TopStart).padding(16.dp)
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(500.dp)
+                .background(Color.Transparent)
+                .zIndex(1f)
         ) {
-            Icon(
-                imageVector = Icons.Default.Menu,
-                contentDescription = "Menu",
-                tint = Color(0xFFE2376C)
-            )
+            IconButton(
+                onClick = { navController.navigate("citiesListScreen") },
+                modifier = Modifier.align(Alignment.TopStart).padding(start = 14.dp, top = 70.dp) // høj værdi af top for at flytte det ned
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "Menu",
+                    tint = Color(0xFFE2376C)
+                )
+            }
         }
 
         LazyColumn(
-            modifier = Modifier.fillMaxSize().padding(top = 56.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(top = 120.dp), // grimme boks, juster efter hvilken telefon du bruger.
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
