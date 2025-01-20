@@ -64,7 +64,7 @@ fun CitiesListScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 1.dp)
                     .background(Color(0xFF383838), shape = MaterialTheme.shapes.extraLarge)
             ) {
                 TextField(
@@ -105,7 +105,8 @@ fun CitiesListScreen(
                 CitySearchResult(
                     weatherResponse = weather,
                     onAddCity = { CitiesList.addCityToList(weather) },
-                    isPreview = true
+                    isPreview = true,
+                    navController
                 )
             }
 

@@ -65,6 +65,14 @@ class MainActivity : ComponentActivity() {
                         addCityToList(newCityWeather)
                     }
                 }
+
+                composable("weatherScreenNo/{cityName}") {
+                    val cityName = it.arguments?.getString("cityName") ?: "Copenhagen"
+                    val viewModel: CityViewModel = viewModel(it)
+                    City(cityName, navController, viewModel) {
+
+                    }
+                }
             }
         }
     }

@@ -8,6 +8,8 @@ import androidx.compose.ui.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import dk.shape.dtu.weatherApp.model.data.CitiesList
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import kotlin.math.ceil
 
@@ -15,7 +17,8 @@ import kotlin.math.ceil
 fun CitySearchResult(
     weatherResponse: WeatherResponse,
     onAddCity: (() -> Unit)? = null,
-    isPreview: Boolean = false
+    isPreview: Boolean = false ,
+    navController: NavController
 ) {
     val city = weatherResponse.city?.name ?: "Unknown City"
     val country = weatherResponse.city?.country ?: "Unknown Country"
@@ -23,7 +26,10 @@ fun CitySearchResult(
     val currentTemp = weatherResponse.list.firstOrNull()?.main?.temp?.minus(273.15)?.let { ceil(it).toInt() }
 
     Card(
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable {
+                navController.navigate("weatherScreenNo /$city")
+                       }        ,
         colors = CardDefaults.cardColors(containerColor = Color(0xFF383838)),
 
     ) {
