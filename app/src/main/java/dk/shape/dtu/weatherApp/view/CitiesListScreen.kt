@@ -109,12 +109,13 @@ fun CitiesListScreen(
                 )
             }
 
-            // Combined List with Favorites first
-            val favoriteCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == true }.toList()
-            val otherCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == false }.toList()
+
+            // val favoriteCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == true }.toList()
+            // val otherCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == false }.toList()
 
             // Combined list where favorites come first
-            val combinedCities = favoriteCities + otherCities
+            val combinedCities = citiesWeather.keys.toList()
+
 
             if (combinedCities.isNotEmpty()) {
                 LazyColumn(

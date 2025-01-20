@@ -24,7 +24,8 @@ fun CitySearchResult(
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF383838))
+        colors = CardDefaults.cardColors(containerColor = Color(0xFF383838)),
+
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),

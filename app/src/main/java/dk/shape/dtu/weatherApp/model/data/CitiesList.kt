@@ -3,7 +3,6 @@ package dk.shape.dtu.weatherApp.model.data
 import android.content.SharedPreferences
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
@@ -32,31 +31,38 @@ object CitiesList {
     }
 
     fun addCityToList(newCityWeather: WeatherResponse?) {
-        if (newCityWeather != null && citiesWeather.value?.none{it.key.city?.name == newCityWeather.city?.name} == true) {
-            citiesWeather.postValue(citiesWeather.value?.plus(Pair(newCityWeather, false)))
+        if (newCityWeather != null && citiesWeather.value?.none { it.key.city?.name == newCityWeather.city?.name } == true) {
+            // Preserve order by using LinkedHashMap
+            val updatedMap = LinkedHashMap(citiesWeather.value)
+            updatedMap[newCityWeather] = false
+            citiesWeather.postValue(updatedMap)
         }
     }
 
     fun removeCityFromList(weatherResponse: WeatherResponse) {
-        citiesWeather.postValue(citiesWeather.value?.filterNot { it.key.city?.name == weatherResponse.city?.name })
+        // Preserve order by using LinkedHashMap
+        val updatedMap = LinkedHashMap(citiesWeather.value)
+        updatedMap.entries.removeIf { it.key.city?.name == weatherResponse.city?.name }
+        citiesWeather.postValue(updatedMap)
     }
 
     fun toggleFavourite(cityName: String) {
         citiesWeather.value?.let { currentMap ->
-            val updatedMap = HashMap(currentMap)
+            // Preserve order by using LinkedHashMap
+            val updatedMap = LinkedHashMap(currentMap)
 
-            val matchingKey = updatedMap.keys.find { it.city?.name == cityName }
-
-            matchingKey?.let {updatedMap[it] = if (updatedMap[it] == null) false else !updatedMap[it]!! }
+            // Find the key matching the city name and toggle its value
+            updatedMap.keys.find { it.city?.name == cityName }?.let { key ->
+                updatedMap[key] = !(updatedMap[key] ?: false)
+            }
 
             citiesWeather.postValue(updatedMap)
         }
     }
 
     fun isFavourite(cityName: String): Boolean {
-        return citiesWeather.value?.get(citiesWeather.value?.keys?.find{it.city?.name == cityName}) ?: false
+        return citiesWeather.value?.get(citiesWeather.value?.keys?.find { it.city?.name == cityName }) ?: false
     }
-
 
     private fun decodeWeatherData(cachedData: String): Map<WeatherResponse, Boolean> {
         return try {

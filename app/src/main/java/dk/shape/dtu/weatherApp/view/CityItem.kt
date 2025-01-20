@@ -8,6 +8,8 @@ import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.*
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -38,6 +40,10 @@ fun CityItem(
         sunrise = weatherResponse.city?.sunrise?.toLong() ?: 0L,
         sunset = weatherResponse.city?.sunset?.toLong() ?: 0L
     )
+    var tint = remember { mutableStateOf(if(CitiesList.isFavourite(city)) Color.Yellow else Color.Gray) }
+
+
+
 
     Card(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 0.dp, vertical = 5.dp).clickable { onCityClick(city) },
@@ -110,15 +116,15 @@ fun CityItem(
                     Icon(
                         imageVector = if (CitiesList.isFavourite(city)) Icons.Filled.Star else Icons.Outlined.Star,
                         contentDescription = "Star Icon",
-                        tint = if (CitiesList.isFavourite(city)) Color.Yellow else Color.Gray,
+                        tint = tint.value,
                         modifier = Modifier
                             .padding(4.dp)
                             .size(24.dp)
                             //.offset(x = (-24).dp, y = (-30).dp)
                             .clickable {
-                                CitiesList.removeCityFromList(weatherResponse) // Remove the city
+                                tint.value = if (tint.value == Color.Gray) Color.Yellow else Color.Gray
                                 CitiesList.toggleFavourite(city) // Toggle the favorite status
-                                CitiesList.addCityToList(weatherResponse) // Re-add the city
+
                             }
                     )
                 }
