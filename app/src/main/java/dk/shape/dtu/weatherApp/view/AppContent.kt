@@ -17,7 +17,9 @@ import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import dk.shape.dtu.weatherApp.viewModel.CityViewModel
 import dk.shape.dtu.weatherApp.viewModel.LocationViewModel
 import androidx.compose.material3.*
-
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 
 
 @Composable
@@ -79,14 +81,13 @@ fun City(
     cityName: String,
     navController: NavController,
     viewModel: CityViewModel,
-    onWeatherFetched: (WeatherResponse?) -> Unit,
 ) {
     val weatherData by viewModel.weatherData.observeAsState()
     val uvIndex by viewModel.uvIndex.observeAsState()
 
     // Start fetching weather data when this composable becomes active
     LaunchedEffect(cityName) {
-        viewModel.startFetchingWeather(cityName, onWeatherFetched)
+        viewModel.startFetchingWeather(cityName)
     }
 
     // Only display AppContent if weather data is available

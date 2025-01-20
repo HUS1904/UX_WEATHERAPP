@@ -18,14 +18,13 @@ class CityViewModel : ViewModel() {
     private val _uvIndex = MutableLiveData<Double?>()
     val uvIndex: LiveData<Double?> = _uvIndex
 
-    fun startFetchingWeather(cityName: String, onWeatherFetched: (WeatherResponse?) -> Unit) {
+    fun startFetchingWeather(cityName: String) {
         viewModelScope.launch {
             while (true) {
                 Log.d("CityViewModel", "Fetching weather data...")
                 fetchWeatherDataByCity(cityName) { data ->
                     if (data != null) {
                         _weatherData.postValue(data)
-                        onWeatherFetched(data)
                         data.city?.coord?.let {
                             // Launch a coroutine to fetch UV index
                             viewModelScope.launch {

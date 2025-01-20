@@ -1,6 +1,5 @@
 package dk.shape.dtu.weatherApp.viewModel
 
-
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

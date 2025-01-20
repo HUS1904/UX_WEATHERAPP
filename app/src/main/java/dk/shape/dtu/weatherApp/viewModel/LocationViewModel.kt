@@ -17,6 +17,7 @@ class LocationViewModel : ViewModel() {
 
     private val _uvIndex = MutableLiveData<Double?>()
     val uvIndex: LiveData<Double?> = _uvIndex
+    private var firstVisit = true
 
     fun startFetchingWeather(latitude: Double, longitude: Double, onWeatherFetched: (WeatherResponse?) -> Unit) {
         viewModelScope.launch {
@@ -24,8 +25,11 @@ class LocationViewModel : ViewModel() {
                 Log.d("LocationViewModel", "Fetching weather data...")
                 fetchWeatherDataByCoordinates(latitude, longitude) { data ->
                     if (data != null){
-                        _weatherData.postValue(data)
-                        onWeatherFetched(data)
+                        if (firstVisit) {
+                            _weatherData.postValue(data)
+                            onWeatherFetched(data)
+                            firstVisit = false
+                        }
                         data.city?.coord?.let {
                             viewModelScope.launch {
                                 fetchUvIndex(it.lat ?: 0.0, it.lon ?: 0.0) { uv ->
