@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.drawscope.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
+import dk.shape.dtu.weatherApp.utils.calculateDewPoint
 import dk.shape.dtu.stateincompose.R
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 
@@ -126,13 +127,15 @@ fun FeelsLike(weatherData: WeatherResponse?, modifier: Modifier = Modifier){
 
 @Composable
 fun AirHumidity(weatherData: WeatherResponse?, modifier: Modifier = Modifier) {
+    // 1) Extract humidity & temp from weatherData
     val airHumidity = weatherData?.list?.get(0)?.main?.humidity ?: 0
     val currentTempKelvin = weatherData?.list?.get(0)?.main?.temp ?: 0.0
-    val currentTempCelsius = currentTempKelvin - 273.15
-    val a = 17.27
-    val b = 237.7
-    val alpha = (a * currentTempCelsius) / (b + currentTempCelsius) + kotlin.math.ln(airHumidity / 100.0)
-    val dewPoint = (b * alpha) / (a - alpha)
+
+    // 2) Use the utility function for dew point
+    val dewPoint = calculateDewPoint(
+        humidity = airHumidity,
+        tempKelvin = currentTempKelvin
+    )
 
     Column(
         modifier = modifier.background(Color(0xFF383838), shape = RoundedCornerShape(10.dp)).padding(16.dp),
