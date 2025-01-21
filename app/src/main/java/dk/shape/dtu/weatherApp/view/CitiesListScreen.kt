@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.CitiesList
+import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -23,11 +24,12 @@ fun CitiesListScreen(
     navController: NavController,
     viewModel: CitiesListViewModel,
 ) {
-
     val searchQuery by viewModel.searchQuery.observeAsState("")
     val previewWeather by viewModel.previewWeather.observeAsState()
     val previewUvIndex by viewModel.previewUvIndex.observeAsState()
     val citiesWeather by CitiesList.citiesWeather.observeAsState(emptyMap())
+    var showDropdownMenu by remember { mutableStateOf(false) }
+    var isFavorite by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -47,6 +49,52 @@ fun CitiesListScreen(
                             contentDescription = "Back",
                             tint = Color(0xFFE2376C)
                         )
+                    }
+                },
+                actions = {
+                    // Filter Icon Button
+                    IconButton(onClick = { showDropdownMenu = true }) {
+                        Icon(
+                            Icons.Default.Settings,
+                            contentDescription = "Filter",
+                            tint = Color.White
+                        )
+                    }
+
+                    // Dropdown Menu
+                    DropdownMenu(
+                        expanded = showDropdownMenu,
+                        onDismissRequest = { showDropdownMenu = false }
+                    ) {
+                        // Filter by Favorites with Box
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(Color(0xFF383838)) // Matches search box background color
+                                .clickable {
+                                    isFavorite = !isFavorite
+                                }
+                                .padding(12.dp) // Padding inside the box for better spacing
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    "Filter by favorites",
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    modifier = Modifier.weight(1f) // Push the icon to the end
+                                )
+                                if (isFavorite) {
+                                    Icon(
+                                        imageVector = Icons.Default.Check,
+                                        contentDescription = "Selected",
+                                        tint = Color(0xFFE2376C) // Matches the navigation back button tint
+                                    )
+                                }
+                            }
+                        }
                     }
                 },
                 modifier = Modifier.padding(9.dp),
@@ -110,14 +158,14 @@ fun CitiesListScreen(
                 )
             }
 
+            // Handle Combined Cities
+            val combinedCities: List<WeatherResponse> = if (isFavorite) {
+                citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == true }
+            } else {
+                citiesWeather.keys.toList()
+            }
 
-            // val favoriteCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == true }.toList()
-            // val otherCities = citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == false }.toList()
-
-            // Combined list where favorites come first
-            val combinedCities = citiesWeather.keys.toList()
-
-
+            // Display Cities List
             if (combinedCities.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier
@@ -125,7 +173,7 @@ fun CitiesListScreen(
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(combinedCities) { weatherResponse ->
+                    items(combinedCities, key = { it.city?.name ?: "" }) { weatherResponse ->
                         CityItem(
                             weatherResponse = weatherResponse,
                             uvIndex = previewUvIndex,
@@ -142,3 +190,4 @@ fun CitiesListScreen(
         }
     }
 }
+
