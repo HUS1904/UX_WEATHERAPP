@@ -5,7 +5,7 @@ data class HumidityInfo(
     val humidity: Int,
     val dewPoint: Double
 )
-// WeatherUtils.kt (in a 'utils' or 'domain' package)
+
 fun calculateDewPoint(humidity: Int, tempKelvin: Double): Double {
     val a = 17.27
     val b = 237.7
