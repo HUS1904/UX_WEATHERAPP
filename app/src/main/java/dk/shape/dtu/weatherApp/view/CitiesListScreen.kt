@@ -64,7 +64,10 @@ fun CitiesListScreen(
                     // Dropdown Menu
                     DropdownMenu(
                         expanded = showDropdownMenu,
-                        onDismissRequest = { showDropdownMenu = false }
+                        onDismissRequest = { showDropdownMenu = false },
+                        modifier = Modifier
+                            .background(Color(0xFF383838))
+                            .border(BorderStroke(1.dp, Color.Gray))
                     ) {
                         // Filter by Favorites with Box
                         Box(
