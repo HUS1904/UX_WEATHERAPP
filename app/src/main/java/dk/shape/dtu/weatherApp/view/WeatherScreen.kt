@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.filled.Search
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable
@@ -56,7 +57,7 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uv
                 modifier = Modifier.align(Alignment.TopStart).padding(start = 14.dp, top = 70.dp) // høj værdi af top for at flytte det ned
             ) {
                 Icon(
-                    imageVector = Icons.Default.Menu,
+                    imageVector = Icons.Default.Search,
                     contentDescription = "Menu",
                     tint = Color(0xFFE2376C)
                 )
