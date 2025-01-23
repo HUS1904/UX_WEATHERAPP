@@ -96,13 +96,13 @@ fun CityItem(
                 verticalArrangement = Arrangement.spacedBy(4.dp)
             ) {
                 Row(
-                    verticalAlignment = Alignment.CenterVertically, // Align icons vertically
-                    horizontalArrangement = Arrangement.spacedBy(2.dp) // Add spacing between trash and star icons
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(2.dp)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Remove City",
-                        tint = Color(0xFFE2376C),
+                        tint = Color(0xFFFF0000),
                         modifier = Modifier
                             .padding(4.dp)
                             .size(24.dp)
