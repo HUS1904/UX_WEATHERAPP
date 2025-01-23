@@ -73,6 +73,30 @@ fun Rain(weatherData: WeatherResponse?, modifier: Modifier = Modifier) {
 }
 
 @Composable
+fun FeelsLikeFrontPage(weatherData: WeatherResponse?, modifier: Modifier = Modifier, fontSize: TextUnit = 14.sp) {
+    val feelsLike = weatherData?.list?.get(0)?.main?.feelsLike
+
+    Row(
+        modifier = modifier.padding(top = 8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = "Feels like: ",
+            color = Color.White,
+            fontWeight = FontWeight.Bold,
+            fontSize = fontSize
+        )
+        Text(
+            text = "${feelsLike?.minus(273.15)?.toInt() ?: "--"}°",
+            color = Color(0xFFE2376C),
+            fontWeight = FontWeight.ExtraBold,
+            fontSize = fontSize
+        )
+    }
+}
+
+
+@Composable
 fun FeelsLike(weatherData: WeatherResponse?, modifier: Modifier = Modifier){
     val feelsLike = weatherData?.list?.get(0)?.main?.feelsLike
 

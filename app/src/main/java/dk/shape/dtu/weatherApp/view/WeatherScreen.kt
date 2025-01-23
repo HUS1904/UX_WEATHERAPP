@@ -117,6 +117,8 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uv
                             CityCountry(weatherData)
                         }
                         CurrentTemp(weatherData)
+
+                        FeelsLikeFrontPage(weatherData)
                     }
                 }
             }
