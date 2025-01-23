@@ -1,10 +1,5 @@
-package dk.shape.dtu.weatherApp.utils
+package dk.shape.dtu.weatherApp.screen
 import kotlin.math.ln
-
-data class HumidityInfo(
-    val humidity: Int,
-    val dewPoint: Double
-)
 
 fun calculateDewPoint(humidity: Int, tempKelvin: Double): Double {
     val a = 17.27

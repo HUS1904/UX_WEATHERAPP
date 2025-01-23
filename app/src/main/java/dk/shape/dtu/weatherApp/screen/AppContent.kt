@@ -1,4 +1,4 @@
-package dk.shape.dtu.weatherApp.view
+package dk.shape.dtu.weatherApp.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,9 +17,6 @@ import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import dk.shape.dtu.weatherApp.viewModel.CityViewModel
 import dk.shape.dtu.weatherApp.viewModel.LocationViewModel
 import androidx.compose.material3.*
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 
 
 @Composable

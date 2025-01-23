@@ -1,4 +1,4 @@
-package dk.shape.dtu.weatherApp.view
+package dk.shape.dtu.weatherApp.screen
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -40,7 +40,7 @@ fun CityItem(
         sunrise = weatherResponse.city?.sunrise?.toLong() ?: 0L,
         sunset = weatherResponse.city?.sunset?.toLong() ?: 0L
     )
-    var tint = remember { mutableStateOf(if(CitiesList.isFavourite(city)) Color.Yellow else Color.Gray) }
+    val tint = remember { mutableStateOf(if(CitiesList.isFavourite(city)) Color.Yellow else Color.Gray) }
 
 
 

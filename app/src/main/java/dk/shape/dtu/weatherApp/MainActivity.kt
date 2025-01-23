@@ -15,15 +15,15 @@ import com.google.android.gms.location.*
 import dk.shape.dtu.weatherApp.model.data.CitiesList
 import dk.shape.dtu.weatherApp.model.data.CitiesList.addCityToList
 import dk.shape.dtu.weatherApp.model.data.getLastKnownLocation
-import dk.shape.dtu.weatherApp.view.CitiesListScreen
-import dk.shape.dtu.weatherApp.view.City
-import dk.shape.dtu.weatherApp.view.Location
+import dk.shape.dtu.weatherApp.screen.CitiesListScreen
+import dk.shape.dtu.weatherApp.screen.City
+import dk.shape.dtu.weatherApp.screen.Location
 import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
 import dk.shape.dtu.weatherApp.viewModel.CityViewModel
 import dk.shape.dtu.weatherApp.viewModel.LocationViewModel
 import androidx.navigation.compose.rememberNavController
-import dk.shape.dtu.weatherApp.utils.setStatusBarColor
-import dk.shape.dtu.weatherApp.utils.NavigationBarHelper
+import dk.shape.dtu.weatherApp.screen.setStatusBarColor
+import dk.shape.dtu.weatherApp.screen.NavigationBarHelper
 
 class MainActivity : ComponentActivity() {
     private lateinit var fusedLocationClient: FusedLocationProviderClient

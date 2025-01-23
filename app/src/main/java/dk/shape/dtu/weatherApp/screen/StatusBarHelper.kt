@@ -1,4 +1,4 @@
-package dk.shape.dtu.weatherApp.utils
+package dk.shape.dtu.weatherApp.screen
 
 import android.graphics.Color
 import android.view.Window

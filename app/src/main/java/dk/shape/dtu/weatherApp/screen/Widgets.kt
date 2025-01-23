@@ -12,9 +12,9 @@ import androidx.compose.ui.graphics.drawscope.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
-import dk.shape.dtu.weatherApp.utils.calculateDewPoint
 import dk.shape.dtu.stateincompose.R
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
+import dk.shape.dtu.weatherApp.screen.calculateDewPoint
 
 @SuppressLint("DefaultLocale")
 @Composable

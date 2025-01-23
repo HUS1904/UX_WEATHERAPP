@@ -1,4 +1,4 @@
-package dk.shape.dtu.weatherApp.view
+package dk.shape.dtu.weatherApp.screen
 
 import androidx.compose.runtime.Composable
 import dk.shape.dtu.stateincompose.R

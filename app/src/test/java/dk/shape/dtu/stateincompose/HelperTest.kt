@@ -1,10 +1,7 @@
 package dk.shape.dtu.stateincompose
 
-import androidx.compose.runtime.Composable
-import dk.shape.dtu.weatherApp.view.formatDay
-import dk.shape.dtu.weatherApp.view.formatTimeFromTimestamp
-import dk.shape.dtu.weatherApp.view.getCityTime
-import dk.shape.dtu.weatherApp.view.getCurrentWeatherIconResource
+import dk.shape.dtu.weatherApp.screen.formatDay
+import dk.shape.dtu.weatherApp.screen.formatTimeFromTimestamp
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

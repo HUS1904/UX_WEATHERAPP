@@ -1,4 +1,4 @@
-package dk.shape.dtu.weatherApp.view
+package dk.shape.dtu.weatherApp.screen
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.*
@@ -6,7 +6,6 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
@@ -23,6 +22,12 @@ import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.filled.Search
+import dk.shape.dtu.weatherApp.view.AirHumidity
+import dk.shape.dtu.weatherApp.view.FeelsLike
+import dk.shape.dtu.weatherApp.view.FeelsLikeFrontPage
+import dk.shape.dtu.weatherApp.view.Rain
+import dk.shape.dtu.weatherApp.view.UvDisplay
+import dk.shape.dtu.weatherApp.view.WindAndDirectionRow
 
 @SuppressLint("UseOfNonLambdaOffsetOverload")
 @Composable

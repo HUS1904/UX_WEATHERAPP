@@ -1,10 +1,8 @@
 import android.util.Log
-import dk.shape.dtu.weatherApp.model.data.UvIndexResponse
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import dk.shape.dtu.weatherApp.model.data.apiKey
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Call
 import retrofit2.Response
 
 suspend fun fetchWeatherDataByCity(city: String, onResult: (WeatherResponse?) -> Unit) {

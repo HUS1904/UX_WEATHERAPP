@@ -1,9 +1,8 @@
-package dk.shape.dtu.weatherApp.view
+package dk.shape.dtu.weatherApp.screen
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
