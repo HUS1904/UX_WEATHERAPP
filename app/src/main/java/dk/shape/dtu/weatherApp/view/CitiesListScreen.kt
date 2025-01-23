@@ -17,6 +17,9 @@ import androidx.navigation.NavController
 import dk.shape.dtu.weatherApp.model.data.CitiesList
 import dk.shape.dtu.weatherApp.model.data.WeatherResponse
 import dk.shape.dtu.weatherApp.viewModel.CitiesListViewModel
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.FilterList
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -55,7 +58,7 @@ fun CitiesListScreen(
                     // Filter Icon Button
                     IconButton(onClick = { showDropdownMenu = true }) {
                         Icon(
-                            Icons.Default.Settings,
+                            imageVector = Icons.Default.FilterList,
                             contentDescription = "Filter",
                             tint = Color.White
                         )
