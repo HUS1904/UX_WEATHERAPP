@@ -28,7 +28,6 @@ fun CitiesListScreen(
 ) {
     val searchQuery by viewModel.searchQuery.observeAsState("")
     val previewWeather by viewModel.previewWeather.observeAsState()
-    val previewUvIndex by viewModel.previewUvIndex.observeAsState()
     val citiesWeather by CitiesList.citiesWeather.observeAsState(emptyMap())
     var showDropdownMenu by remember { mutableStateOf(false) }
     var isFavorite by remember { mutableStateOf(false) }
@@ -181,7 +180,6 @@ fun CitiesListScreen(
                     items(combinedCities, key = { it.city?.name ?: "" }) { weatherResponse ->
                         CityItem(
                             weatherResponse = weatherResponse,
-                            uvIndex = previewUvIndex,
                             onCityClick = { cityName ->
                                 navController.navigate("weatherScreen/$cityName")
                             },

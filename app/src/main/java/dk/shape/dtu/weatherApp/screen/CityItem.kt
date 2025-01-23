@@ -23,7 +23,6 @@ import dk.shape.dtu.weatherApp.model.data.CitiesList
 @Composable
 fun CityItem(
     weatherResponse: WeatherResponse,
-    uvIndex: Double?,
     onCityClick: (String) -> Unit,
     onCityRemove: (WeatherResponse) -> Unit
 ) {
@@ -130,7 +129,6 @@ fun CityItem(
                 }
                 Text(text = "Humidity: $humidity%", style = MaterialTheme.typography.bodySmall, color = Color.White)
                 Text(text = "Rain: ${"%.1f".format(rainVolume)} mm", style = MaterialTheme.typography.bodySmall, color = Color.White)
-                Text(text = "UV Index: ${"%.1f".format(uvIndex ?: 0.0)}", style = MaterialTheme.typography.bodySmall, color = Color.White)
             }
         }
     }
