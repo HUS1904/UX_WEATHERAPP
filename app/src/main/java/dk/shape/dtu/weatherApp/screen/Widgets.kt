@@ -151,11 +151,8 @@ fun FeelsLike(weatherData: WeatherResponse?, modifier: Modifier = Modifier){
 
 @Composable
 fun AirHumidity(weatherData: WeatherResponse?, modifier: Modifier = Modifier) {
-    // 1) Extract humidity & temp from weatherData
     val airHumidity = weatherData?.list?.get(0)?.main?.humidity ?: 0
     val currentTempKelvin = weatherData?.list?.get(0)?.main?.temp ?: 0.0
-
-    // 2) Use the utility function for dew point
     val dewPoint = calculateDewPoint(
         humidity = airHumidity,
         tempKelvin = currentTempKelvin

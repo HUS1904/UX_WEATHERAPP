@@ -59,7 +59,7 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uv
         ) {
             IconButton(
                 onClick = { navController.navigate("citiesListScreen") },
-                modifier = Modifier.align(Alignment.TopStart).padding(start = 14.dp, top = 70.dp) // høj værdi af top for at flytte det ned
+                modifier = Modifier.align(Alignment.TopStart).padding(start = 14.dp, top = 70.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Search,
@@ -72,7 +72,7 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uv
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 120.dp), // grimme boks, juster efter hvilken telefon du bruger.
+                .padding(top = 120.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {

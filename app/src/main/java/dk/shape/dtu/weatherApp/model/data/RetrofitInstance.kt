@@ -31,18 +31,18 @@ object RetrofitInstance {
     @OptIn(ExperimentalSerializationApi::class)
     val api: WeatherApi by lazy {
         val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
-        val cacheDir = File(context?.cacheDir, "http_cache") // Use a context-provided cache directory
+        val cacheDir = File(context?.cacheDir, "http_cache")
         val cache = Cache(cacheDir, cacheSize)
 
         val cachingInterceptor = Interceptor { chain ->
             val request = chain.request()
             val updatedRequest = if (context?.isNetworkAvailable() == false) {
                 request.newBuilder()
-                    .header("Cache-Control", "only-if-cached, max-stale=${60 * 60 * 24}") // Cache for up to 24 hours
+                    .header("Cache-Control", "only-if-cached, max-stale=${60 * 60 * 24}") // Cache to 24 hours
                     .build()
             } else {
                 request.newBuilder()
-                    .header("Cache-Control", "public, max-age=${60 * 60}") // Cache for 1 hour
+                    .header("Cache-Control", "public, max-age=${60 * 60}") // Cache 1 hour
                     .build()
             }
             chain.proceed(updatedRequest)

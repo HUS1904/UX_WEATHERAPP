@@ -26,7 +26,6 @@ class CityViewModel : ViewModel() {
                     if (data != null) {
                         _weatherData.postValue(data)
                         data.city?.coord?.let {
-                            // Launch a coroutine to fetch UV index
                             viewModelScope.launch {
                                 fetchUvIndex(it.lat ?: 0.0, it.lon ?: 0.0) { uv ->
                                     _uvIndex.postValue(uv)
@@ -35,7 +34,7 @@ class CityViewModel : ViewModel() {
                         }
                     }
                 }
-                delay(5 * 60 * 1000L) // 5-minute delay
+                delay(5 * 60 * 1000L) // 5-min
             }
         }
     }

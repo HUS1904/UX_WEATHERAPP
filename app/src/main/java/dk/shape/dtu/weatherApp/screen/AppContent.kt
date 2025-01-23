@@ -46,22 +46,18 @@ fun Location(
     val weatherData by viewModel.weatherData.observeAsState()
     val uvIndex by viewModel.uvIndex.observeAsState()
 
-    // Start fetching weather data when this composable becomes active
     LaunchedEffect(latitude, longitude) {
         viewModel.startFetchingWeather(latitude, longitude, onWeatherFetched)
     }
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = Color(0xFF282828) // Match app's primary background color
+        color = Color(0xFF282828)
     ) {
-
-        // Only display AppContent if weather data is available
         if (weatherData != null && uvIndex != null) {
             Box(Modifier.fillMaxSize(), Alignment.Center) {
                 AppContent(navController, weatherData!!, uvIndex!!)
             }
         } else {
-            // Show a loading state
             Box(Modifier.fillMaxSize(), Alignment.Center) {
                 Text(
                     text = "Loading...",
@@ -82,18 +78,14 @@ fun City(
     val weatherData by viewModel.weatherData.observeAsState()
     val uvIndex by viewModel.uvIndex.observeAsState()
 
-    // Start fetching weather data when this composable becomes active
     LaunchedEffect(cityName) {
         viewModel.startFetchingWeather(cityName)
     }
-
-    // Only display AppContent if weather data is available
     if (weatherData != null && uvIndex != null) {
         Box(Modifier.fillMaxSize(), Alignment.Center) {
             AppContent(navController, weatherData!!, uvIndex!!)
         }
     } else {
-        // Show a loading state
         Box(Modifier.fillMaxSize(), Alignment.Center) {
             Text(
                 text = "Loading...",

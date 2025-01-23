@@ -64,12 +64,11 @@ suspend fun fetchUvIndex(lat: Double, lon: Double, onResult: (Double?) -> Unit) 
     }
 }
 
-// Helper function to attempt cache (if OkHttp cached it)
 private fun tryCache(key: String): WeatherResponse? {
     return try {
         RetrofitInstance.api.getWeather(key, apiKey).request()
             .newBuilder()
-            .header("Cache-Control", "only-if-cached, max-stale=${60 * 60 * 24}") // 1-day cache
+            .header("Cache-Control", "only-if-cached, max-stale=${60 * 60 * 24}")
             .build()
         val response: Response<WeatherResponse> = RetrofitInstance.api.getWeather(key, apiKey).clone().execute()
         if (response.isSuccessful) response.body() else null

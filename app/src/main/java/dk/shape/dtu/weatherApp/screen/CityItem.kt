@@ -41,9 +41,6 @@ fun CityItem(
     )
     val tint = remember { mutableStateOf(if(CitiesList.isFavourite(city)) Color.Yellow else Color.Gray) }
 
-
-
-
     Card(
         modifier = Modifier.fillMaxWidth().padding(horizontal = 0.dp, vertical = 5.dp).clickable { onCityClick(city) },
         colors = CardDefaults.cardColors(containerColor = Color(0xFF383838)),
@@ -105,7 +102,6 @@ fun CityItem(
                         modifier = Modifier
                             .padding(4.dp)
                             .size(24.dp)
-                            //.offset(x = (6).dp, y = (10).dp)
                             .clickable {
                                 onCityRemove(weatherResponse)
                             }
@@ -119,10 +115,9 @@ fun CityItem(
                         modifier = Modifier
                             .padding(4.dp)
                             .size(24.dp)
-                            //.offset(x = (-24).dp, y = (-30).dp)
                             .clickable {
                                 tint.value = if (tint.value == Color.Gray) Color.Yellow else Color.Gray
-                                CitiesList.toggleFavourite(city) // Toggle the favorite status
+                                CitiesList.toggleFavourite(city)
 
                             }
                     )
@@ -133,5 +128,3 @@ fun CityItem(
         }
     }
 }
-
-

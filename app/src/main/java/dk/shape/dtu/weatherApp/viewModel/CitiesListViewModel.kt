@@ -8,11 +8,9 @@ import fetchWeatherDataByCity
 import kotlinx.coroutines.launch
 
 class CitiesListViewModel : ViewModel() {
-    val searchQuery = MutableLiveData("")  // Stores the current search query
+    val searchQuery = MutableLiveData("")
+    val previewWeather = MutableLiveData<WeatherResponse?>(null)
 
-    val previewWeather = MutableLiveData<WeatherResponse?>(null)  // Stores the weather data preview
-
-    // Function to handle search query changes
     fun onSearchQueryChanged(query: String) {
         searchQuery.value = query
         if (query.isNotBlank()) {

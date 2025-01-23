@@ -53,7 +53,7 @@ fun CitiesListScreen(
                     }
                 },
                 actions = {
-                    // Filter Icon Button
+                    // Filter Button
                     IconButton(onClick = { showDropdownMenu = true }) {
                         Icon(
                             imageVector = Icons.Default.FilterList,
@@ -71,15 +71,15 @@ fun CitiesListScreen(
                             .border(BorderStroke(1.dp, Color.Gray)),
                         offset = DpOffset((-50).dp, (-45).dp)
                     ) {
-                        // Filter by Favorites with Box
+                        // Filter by Favorites
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .background(Color(0xFF383838)) // Matches search box background color
+                                .background(Color(0xFF383838))
                                 .clickable {
                                     isFavorite = !isFavorite
                                 }
-                                .padding(horizontal = 8.dp, vertical = 4.dp) // Padding inside the box for better spacing
+                                .padding(horizontal = 8.dp, vertical = 4.dp)
                         ) {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
@@ -91,13 +91,13 @@ fun CitiesListScreen(
                                     "Filter by favorites",
                                     color = Color.White,
                                     fontSize = 14.sp,
-                                    modifier = Modifier.weight(1f) // Push the icon to the end
+                                    modifier = Modifier.weight(1f)
                                 )
                                 if (isFavorite) {
                                     Icon(
                                         imageVector = Icons.Default.Check,
                                         contentDescription = "Selected",
-                                        tint = Color(0xFFE2376C), // Matches the navigation back button tint
+                                        tint = Color(0xFFE2376C),
                                         modifier = Modifier.size(16.dp)
                                     )
                                 }
@@ -166,14 +166,12 @@ fun CitiesListScreen(
                 )
             }
 
-            // Handle Combined Cities
             val combinedCities: List<WeatherResponse> = if (isFavorite) {
                 citiesWeather.keys.filter { it.city?.name?.let { CitiesList.isFavourite(it) } == true }
             } else {
                 citiesWeather.keys.toList()
             }
 
-            // Display Cities List
             if (combinedCities.isNotEmpty()) {
                 LazyColumn(
                     modifier = Modifier
@@ -197,4 +195,3 @@ fun CitiesListScreen(
         }
     }
 }
-
