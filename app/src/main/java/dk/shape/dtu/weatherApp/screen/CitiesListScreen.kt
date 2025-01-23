@@ -68,7 +68,8 @@ fun CitiesListScreen(
                         onDismissRequest = { showDropdownMenu = false },
                         modifier = Modifier
                             .background(Color(0xFF383838))
-                            .border(BorderStroke(1.dp, Color.Gray))
+                            .border(BorderStroke(1.dp, Color.Gray)),
+                        offset = DpOffset((-50).dp, (-45).dp)
                     ) {
                         // Filter by Favorites with Box
                         Box(
@@ -78,23 +79,26 @@ fun CitiesListScreen(
                                 .clickable {
                                     isFavorite = !isFavorite
                                 }
-                                .padding(12.dp) // Padding inside the box for better spacing
+                                .padding(horizontal = 8.dp, vertical = 4.dp) // Padding inside the box for better spacing
                         ) {
                             Row(
                                 verticalAlignment = Alignment.CenterVertically,
-                                modifier = Modifier.fillMaxWidth()
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(IntrinsicSize.Min)
                             ) {
                                 Text(
                                     "Filter by favorites",
                                     color = Color.White,
-                                    fontSize = 16.sp,
+                                    fontSize = 14.sp,
                                     modifier = Modifier.weight(1f) // Push the icon to the end
                                 )
                                 if (isFavorite) {
                                     Icon(
                                         imageVector = Icons.Default.Check,
                                         contentDescription = "Selected",
-                                        tint = Color(0xFFE2376C) // Matches the navigation back button tint
+                                        tint = Color(0xFFE2376C), // Matches the navigation back button tint
+                                        modifier = Modifier.size(16.dp)
                                     )
                                 }
                             }
