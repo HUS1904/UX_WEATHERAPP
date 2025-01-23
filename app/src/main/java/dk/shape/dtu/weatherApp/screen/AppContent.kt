@@ -65,8 +65,8 @@ fun Location(
             Box(Modifier.fillMaxSize(), Alignment.Center) {
                 Text(
                     text = "Loading...",
-                    color = Color(0xFFE2376C), // Custom text color
-                    style = MaterialTheme.typography.bodyLarge // Optional style
+                    color = Color(0xFFE2376C),
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
         }
@@ -95,7 +95,11 @@ fun City(
     } else {
         // Show a loading state
         Box(Modifier.fillMaxSize(), Alignment.Center) {
-            Text("Loading...")
+            Text(
+                text = "Loading...",
+                color = Color(0xFFE2376C),
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
     }
 }
