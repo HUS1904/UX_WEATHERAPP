@@ -56,7 +56,7 @@ fun CitiesListScreen(
                     // Filter Button
                     IconButton(onClick = { showDropdownMenu = true }) {
                         Icon(
-                            imageVector = Icons.Default.FilterList,
+                            imageVector = Icons.Default.FilterAlt,
                             contentDescription = "Filter",
                             tint = Color.White
                         )

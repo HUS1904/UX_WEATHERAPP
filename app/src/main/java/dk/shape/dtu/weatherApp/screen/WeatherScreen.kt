@@ -24,7 +24,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.filled.Search
 import dk.shape.dtu.weatherApp.view.AirHumidity
 import dk.shape.dtu.weatherApp.view.FeelsLike
-import dk.shape.dtu.weatherApp.view.FeelsLikeFrontPage
 import dk.shape.dtu.weatherApp.view.Rain
 import dk.shape.dtu.weatherApp.view.UvDisplay
 import dk.shape.dtu.weatherApp.view.WindAndDirectionRow
@@ -122,8 +121,6 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uv
                             CityCountry(weatherData)
                         }
                         CurrentTemp(weatherData)
-
-                        FeelsLikeFrontPage(weatherData)
                     }
                 }
             }
