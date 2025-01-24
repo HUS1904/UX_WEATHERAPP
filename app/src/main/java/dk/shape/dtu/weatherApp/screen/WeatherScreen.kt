@@ -58,7 +58,7 @@ fun WeatherScreen(navController: NavController, weatherData: WeatherResponse, uv
         ) {
             IconButton(
                 onClick = { navController.navigate("citiesListScreen") },
-                modifier = Modifier.align(Alignment.TopStart).padding(start = 14.dp, top = 70.dp)
+                modifier = Modifier.align(Alignment.TopStart).padding(start = 15.dp, top = 45.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Search,
