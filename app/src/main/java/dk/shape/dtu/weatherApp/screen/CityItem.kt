@@ -98,7 +98,7 @@ fun CityItem(
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Remove City",
-                        tint = Color(0xFFFF0000),
+                        tint = Color(0xFFE2376C),
                         modifier = Modifier
                             .padding(4.dp)
                             .size(24.dp)
@@ -116,7 +116,7 @@ fun CityItem(
                             .padding(4.dp)
                             .size(24.dp)
                             .clickable {
-                                tint.value = if (tint.value == Color.Gray) Color.Yellow else Color.Gray
+                                tint.value = if (tint.value == Color.Gray) Color(0xFFE2376C) else Color.Gray
                                 CitiesList.toggleFavourite(city)
 
                             }

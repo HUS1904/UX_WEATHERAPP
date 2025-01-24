@@ -55,7 +55,7 @@ fun CitySearchResult(
             if (isPreview) {
                 Text(
                     text = "Add",
-                    color = Color(0xFF00FF00),
+                    color = Color(0xFFE2376C),
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(start = 8.dp).clickable { onAddCity?.invoke() },
                     style = MaterialTheme.typography.bodyLarge,
